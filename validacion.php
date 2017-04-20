@@ -4,13 +4,13 @@ function validateLogin($datos) {
 	$errores = [];
 
 	if (trim($datos["usuario"]) === "") {
-		$errores["usuario"] = "El usuario no puede estar vacio";
+		$errores["usuario"] = "Usuario inaválido";
 	}
 
 	$pass = trim($_POST["password"]);
-	
-	if ($pass === "") {
-		$errores["password"] = "Llena la pass";
+
+	if ($pass === "" || strlen ($pass) <4) {
+		$errores["password"] = "Contraseña incorrecta";
 	}
 
 	return $errores;
