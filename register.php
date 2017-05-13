@@ -30,13 +30,21 @@ if ($_POST) {
     $newPassword=md5($passwordDefault);
     $newConfirm=md5($cpasswordDefault);
 
-    $stmt=$db -> prepare ("INSERT INTO usuarios(usuario,mail,password,cpassword,nombre) VALUES( '$usernameDefault' , '$emaildefault' , '$newPassword' , '$newConfirm' , '$nameDefault')");
+    $select= $db -> prepare("SELECT * FROM usuarios WHERE usuario = '$usernameDefault' OR mail = '$emaildefault' ");
+    $select -> execute();
+
+    if($select -> rowCount()== 0){
+      $stmt=$db -> prepare ("INSERT INTO usuarios(usuario,mail,password,cpassword,nombre) VALUES( '$usernameDefault' , '$emaildefault' , '$newPassword' , '$newConfirm' , '$nameDefault')");
 
 
-    $stmt -> execute();
+      $stmt -> execute();
     
 
-    header("location:login.php");
+      header("location:login.php");
+    }else{
+      echo "error";
+    }
+
   }
   if (!isset($errores["mail"])) {
     $emaildefault = $_POST["mail"];
