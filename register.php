@@ -2,6 +2,8 @@
 include("validacion.php");
 $usernameDefault ="";
 $emaildefault = "";
+$passwordDefault="";
+$cpasswordDefault="";
 $usernameError ="usuario";
 $passwordError ="contraseña";
 $nameDefault="";
@@ -9,14 +11,32 @@ $nameError = "nombre";
 if ($_POST) {
   $errors = validateRegister($_POST);
   if (count($errors) == 0) {
-    //ACA HABRIA QUE GUARDAR AL USUARIO EN CASO DE QUE NO HUBIERA HABIADO ERROR EN LA REGISTRACION.
 
-    $usuario = crearUsuario($_POST);
+    $dsn='mysql:host=localhost;dbname=usuarios;charset=utf8mb4;port=3306';
+    $db_user="root";
+    $db_pass="root";
+    try{
+        $db=new PDO($dsn,$db_user,$db_pass);
+    }catch(PDOException $exception){
+        echo $exception-> getMessage();
+    }
 
-			//Guardar el usuario
-			guardarUsuario($usuario);
+    $nameDefault=$_POST["name"];
+    $emaildefault=$_POST["mail"];
+    $usernameDefault=$_POST["usuario"];
+    $passwordDefault=$_POST["password"];
+    $cpasswordDefault=$_POST["cpassword"];
 
-    header("location:login.php");exit;
+    $newPassword=md5($passwordDefault);
+    $newConfirm=md5($cpasswordDefault);
+
+    $stmt=$db -> prepare ("INSERT INTO usuarios(usuario,mail,password,cpassword,nombre) VALUES( '$usernameDefault' , '$emaildefault' , '$newPassword' , '$newConfirm' , '$nameDefault')");
+
+
+    $stmt -> execute();
+    
+
+    header("location:login.php");
   }
   if (!isset($errores["mail"])) {
     $emaildefault = $_POST["mail"];

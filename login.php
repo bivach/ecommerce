@@ -9,18 +9,41 @@
 
     $errors = validateLogin($_POST);
     if (count($errors) == 0) {
-			header("location:home.php");exit;
-		}
+      $dsn='mysql:host=localhost;dbname=usuarios;charset=utf8mb4;port=3306';
+      $db_user="root";
+      $db_pass="root";
+      try{
+          $db=new PDO($dsn,$db_user,$db_pass);
+      }catch(PDOException $exception){
+          echo $exception-> getMessage();
+      }
+      $username=$_POST["usuario"];
+      $password=$_POST["password"];
+
+      $newPassword=md5($password);
+
+      $stmt= $db -> prepare("SELECT * FROM usuarios WHERE usuario ='$username' AND password = '$newPassword' ");
+      $stmt-> execute();
+
+      if($stmt->rowCount() == 1){
+        session_start();
+        $_SESSION["usuario"]=$username;
+        $_SESSION["autentificado"]=true;
+      }
+
+      header("location:homeIngresado.php");exit;
+
+    }
 
     if (isset($_POST["remember_me"])) {
       $checkboxState = "checked";
     }
 
     if (!isset($errors["usuario"])) {
-			$usernameDefault = $_POST["usuario"];
-		}else {
-		  $usernameError = $errors["usuario"];
-		}
+      $usernameDefault = $_POST["usuario"];
+    }else {
+      $usernameError = $errors["usuario"];
+    }
     if (isset($errors["password"])) {
       $passwordError = $errors["password"];
     }
