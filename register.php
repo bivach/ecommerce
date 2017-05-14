@@ -6,6 +6,7 @@ $passwordDefault="";
 $cpasswordDefault="";
 $usernameError ="usuario";
 $passwordError ="contraseña";
+$emailError="email";
 $nameDefault="";
 $nameError = "nombre";
 if ($_POST) {
@@ -30,23 +31,32 @@ if ($_POST) {
     $newPassword=md5($passwordDefault);
     $newConfirm=md5($cpasswordDefault);
 
-    $select= $db -> prepare("SELECT * FROM usuarios WHERE usuario = '$usernameDefault' OR mail = '$emaildefault' ");
-    $select -> execute();
+    $selectUsuarios= $db -> prepare("SELECT * FROM usuarios WHERE usuario = '$usernameDefault'");
+    $selectUsuarios -> execute();
 
-    if($select -> rowCount()== 0){
-      $stmt=$db -> prepare ("INSERT INTO usuarios(usuario,mail,password,cpassword,nombre) VALUES( '$usernameDefault' , '$emaildefault' , '$newPassword' , '$newConfirm' , '$nameDefault')");
+    if($selectUsuarios -> rowCount()== 0){
+
+      $selectMail=$db -> prepare("SELECT * FROM usuarios WHERE mail = '$emaildefault' ");
+      $selectMail -> execute();
+
+      if($selectMail -> rowCount() == 0){
+
+        $stmt=$db -> prepare ("INSERT INTO usuarios(usuario,mail,password,cpassword,nombre) VALUES( '$usernameDefault' , '$emaildefault' , '$newPassword' , '$newConfirm' , '$nameDefault')");
+
+        $stmt -> execute();        
+      }else{
+        $emailError="Email existente";
+        $errors["mail"]=$emailError;
+      }
 
 
-      $stmt -> execute();
-    
-
-      header("location:login.php");
     }else{
-      echo "error";
+      $usernameError="Usuario exitente";
+      $errors["usuario"]=$usernameError;
     }
 
   }
-  if (!isset($errores["mail"])) {
+  if (!isset($errors["mail"])) {
     $emaildefault = $_POST["mail"];
   }
 
@@ -89,9 +99,9 @@ include ("header.php");
 
       <?php
           if (isset($errors["usuario"])) {?>
-            <input id= 'error' type="text" name = "usuario" placeholder="<?=$usernameError?>" value="<?=$usernameDefault?>"/>
-            <?php
-          }else {?>
+            <input id= 'error' type="text" name = "usuario" placeholder="<?=$usernameError?>" />
+            <?php 
+          }  else {?>
               <input type="usuario" name = "usuario" placeholder="<?=$usernameError?>" value="<?=$usernameDefault?>"/>
             <?php
           }
@@ -112,7 +122,7 @@ include ("header.php");
         <?php
             if (isset($errors["mail"])) {?>
 
-                <input id= 'error' type="email" name= "mail" placeholder="Email inválido" value="<?=$emaildefault?>"/>
+                <input id= 'error' type="email" name= "mail" placeholder="<?=$emailError?>"/>
 
               <?php
             }else {?>
