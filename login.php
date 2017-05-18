@@ -22,16 +22,28 @@
 
       $newPassword=md5($password);
 
-      $stmt= $db -> prepare("SELECT * FROM usuarios WHERE usuario ='$username' AND password = '$newPassword' ");
-      $stmt-> execute();
+      $selectUsuarios= $db -> prepare("SELECT * FROM usuarios WHERE usuario = '$username' ");
+      $selectUsuarios -> execute();
+      $countUsuarios = $selectUsuarios -> rowCount();
 
-      if($stmt->rowCount() == 1){
+      $select = $db -> prepare("SELECT * FROM usuarios WHERE usuario = '$username' AND password = '$newPassword' ");
+      $select -> execute();
+      $count = $select -> rowCount();
+
+      if($count== 1){
         session_start();
         $_SESSION["usuario"]=$username;
         $_SESSION["autentificado"]=true;
-      }
+        header("location:home.php");exit;
 
-      header("location:homeIngresado.php");exit;
+      }elseif($count != 1 && $countUsuarios == 1){
+        $passwordError = "Contraseña incorrecta";
+        $errors["password"]= $passwordError;
+
+      }else{
+        $usernameError = "El usuario no existe";
+        $errors["usuario"]=$usernameError;
+      }
 
     }
 

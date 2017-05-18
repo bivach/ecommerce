@@ -9,7 +9,7 @@ $passwordError ="contraseña";
 $emailError="email";
 $nameDefault="";
 $nameError = "nombre";
-if ($_POST) {
+if ($_POST){ 
   $errors = validateRegister($_POST);
   if (count($errors) == 0) {
 
@@ -33,27 +33,35 @@ if ($_POST) {
 
     $selectUsuarios= $db -> prepare("SELECT * FROM usuarios WHERE usuario = '$usernameDefault'");
     $selectUsuarios -> execute();
+    $countUsuarios = $selectUsuarios -> rowCount();
 
-    if($selectUsuarios -> rowCount()== 0){
+    $selectMail=$db -> prepare("SELECT * FROM usuarios WHERE mail = '$emaildefault' ");
+    $selectMail -> execute();
+    $countMails = $selectMail -> rowCount();
 
-      $selectMail=$db -> prepare("SELECT * FROM usuarios WHERE mail = '$emaildefault' ");
-      $selectMail -> execute();
 
-      if($selectMail -> rowCount() == 0){
+    if($countUsuarios == 0 && $countMails == 0){
 
         $stmt=$db -> prepare ("INSERT INTO usuarios(usuario,mail,password,cpassword,nombre) VALUES( '$usernameDefault' , '$emaildefault' , '$newPassword' , '$newConfirm' , '$nameDefault')");
 
-        $stmt -> execute();        
-      }else{
+        $stmt -> execute(); 
+
+        header("location:login.php");
+       
+    }elseif($countUsuarios != 0 && $countMails != 0){
         $emailError="Email existente";
         $errors["mail"]=$emailError;
-      }
 
-
+        $usernameError="Usuario existente";
+        $errors["usuario"]=$usernameError;
+    }elseif($countUsuarios != 0 && $countMails == 0){
+        $usernameError="Usuario existente";
+        $errors["usuario"]=$usernameError;
     }else{
-      $usernameError="Usuario exitente";
-      $errors["usuario"]=$usernameError;
+        $emailError="Email existente";
+        $errors["mail"]=$emailError;
     }
+
 
   }
   if (!isset($errors["mail"])) {

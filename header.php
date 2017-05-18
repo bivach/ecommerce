@@ -1,3 +1,6 @@
+<?php 
+  session_start();
+?>
 <!DOCTYPE html>
 <html>
 
@@ -17,9 +20,14 @@
 
             <div class="row row1">
                 <ul class="largenav pull-right">
+                <?php if (isset($_SESSION['autentificado'])){ ?>
+                  <li class="upper-links"><a class="links" href="cerrarSesion.php">Cerrar Sesión</a></li>
+                  <li class="upper-links"><a class="links" href="faq.php">FAQ</a></li>
+                  <? }else{ ?>                
                   <li class="upper-links"><a class="links" href="login.php">Inicia Sesión</a></li>
                   <li class="upper-links"><a class="links" href="register.php">Registrate</a></li>
                   <li class="upper-links"><a class="links" href="faq.php">FAQ</a></li>
+                  <? } ?>
                   <!-- <li class="upper-links">
                       <a class="links" href="#">
                           <svg class="" width="16px" height="12px" style="overflow: visible;">
@@ -63,10 +71,17 @@
             <span class="sidenav-heading">Logo</span>
             <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
         </div>
+        <? if(isset($_SESSION['autentificado'])){?>
+          <a href="home.php">Home</a>
+          <a href="faq.php">FAQ</a>
+          <a href="faq.php">Mis Compras</a>
+        <? }else{?>
           <a href="home.php">Home</a>
           <a href="login.php">Inicia Sesión</a>
           <a href="register.php">Registrar</a>
           <a href="faq.php">FAQ</a>
           <a href="faq.php">Mis Compras</a>
+        <? } ?>
+
     </div>
     </header>

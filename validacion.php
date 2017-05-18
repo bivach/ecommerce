@@ -3,14 +3,20 @@
 function validateLogin($datos) {
 	$errores = [];
 
-	if (trim($datos["usuario"]) === "") {
+	if (trim($datos["usuario"]) > 4) {
 		$errores["usuario"] = "Usuario inaválido";
+	}
+	if(trim($datos["usuario"]==="")){
+		$errores["usuario"]="Completar usuario";
 	}
 
 	$pass = trim($_POST["password"]);
 
-	if (strlen ($pass) <4) {
+	if (strlen ($pass) <4 && strlen($pass >0)) {
 		$errores["password"] = "Contraseña incorrecta";
+	}
+	if(strlen($pass) == 0){
+		$errores["password"]= "Debes llenar la contraseña";
 	}
 
 	return $errores;

@@ -1,11 +1,7 @@
 <?php
 session_start();
   include("validacion.php");
-  if(isset($_SESSION['autentificado'])){
-    include ("headerIngresado.php");
-  }else{
-    include ("header.php");
-  }  
+  include("header.php");  
 
    ?>
    <div class="faq-page">
