@@ -1,56 +1,23 @@
 <?php
-  include("validacion.php");
+
   $usernameDefault ="";
   $usernameError ="usuario";
   $passwordError ="contraseña";
   $checkboxState = "";
 
   if($_POST){
+    require_once("controller/UserController.php");
+    require_once("model/User.php");
 
-    $errors = validateLogin($_POST);
-    if (count($errors) == 0) {
-      $dsn='mysql:host=localhost;dbname=usuarios;charset=utf8mb4;port=3306';
-      $db_user="root";
-      $db_pass="root";
-      try{
-          $db=new PDO($dsn,$db_user,$db_pass);
-      }catch(PDOException $exception){
-          echo $exception-> getMessage();
-      }
-      $username=$_POST["usuario"];
-      $password=$_POST["password"];
+    $userController = new UserController(new SQLDataBase());
+    $user = new User($_POST["usuario"],null,$_POST["password"],null,null);
 
-      $newPassword=md5($password);
+    $errors = $userController->validateLogin($user);
 
-      $selectUsuarios= $db -> prepare("SELECT * FROM usuarios WHERE usuario = '$username' ");
-      $selectUsuarios -> execute();
-      $countUsuarios = $selectUsuarios -> rowCount();
-
-      $select = $db -> prepare("SELECT * FROM usuarios WHERE usuario = '$username' AND password = '$newPassword' ");
-      $select -> execute();
-      $count = $select -> rowCount();
-
-      if($count== 1){
-        session_start();
-        $_SESSION["usuario"]=$username;
-        $_SESSION["autentificado"]=true;
-        header("location:home.php");exit;
-
-      }elseif($count != 1 && $countUsuarios == 1){
-        $passwordError = "Contraseña incorrecta";
-        $errors["password"]= $passwordError;
-
-      }else{
-        $usernameError = "El usuario no existe";
-        $errors["usuario"]=$usernameError;
-      }
-
-    }
-
+    //SET DEFAULT VALUES
     if (isset($_POST["remember_me"])) {
       $checkboxState = "checked";
     }
-
     if (!isset($errors["usuario"])) {
       $usernameDefault = $_POST["usuario"];
     }else {
@@ -62,9 +29,10 @@
 
   }
 
-  include ("header.php");
+  require_once("header.php");
 
    ?>
+
   <div class="login-page">
   <div class="form">
     <form class="login-form" method="post" action="login.php">

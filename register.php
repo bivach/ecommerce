@@ -1,92 +1,46 @@
 <?php
-include("validacion.php");
-$usernameDefault ="";
-$emaildefault = "";
-$passwordDefault="";
-$cpasswordDefault="";
-$usernameError ="usuario";
-$passwordError ="contraseña";
-$emailError="email";
-$nameDefault="";
-$nameError = "nombre";
-if ($_POST){ 
-  $errors = validateRegister($_POST);
-  if (count($errors) == 0) {
 
-    $dsn='mysql:host=localhost;dbname=usuarios;charset=utf8mb4;port=3306';
-    $db_user="root";
-    $db_pass="root";
-    try{
-        $db=new PDO($dsn,$db_user,$db_pass);
-    }catch(PDOException $exception){
-        echo $exception-> getMessage();
+    $usernameDefault ="";
+    $emaildefault = "";
+    $passwordDefault="";
+    $cpasswordDefault="";
+    $nameDefault="";
+    $usernameError ="usuario";
+    $passwordError ="contraseña";
+    $emailError="email";
+    $nameError = "nombre";
+
+    if ($_POST){
+
+      require_once("controller/SQLDataBase.php");
+      require_once("controller/UserController.php");
+      require_once("model/User.php");
+      $userController = new UserController(new SQLDataBase());
+      $user = new User($_POST["usuario"],$_POST["name"],$_POST["password"],$_POST["mail"],$_POST["cpassword"]);
+      $errors = $userController->validateRegister($user);
+
+      if (!isset($errors["mail"])) {
+        $emaildefault = $_POST["mail"];
+      }
+
+      if (!isset($errors["usuario"])) {
+        $usernameDefault = $_POST["usuario"];
+      }else {
+        $usernameError = $errors["usuario"];
+      }
+
+      if (!isset($errors["name"])) {
+        $nameDefault = $_POST["name"];
+      }else {
+        $nameError = $errors["name"];
+      }
+
+      if (isset($errors["password"])) {
+        $passwordError = $errors["password"];
+      }
     }
 
-    $nameDefault=$_POST["name"];
-    $emaildefault=$_POST["mail"];
-    $usernameDefault=$_POST["usuario"];
-    $passwordDefault=$_POST["password"];
-    $cpasswordDefault=$_POST["cpassword"];
-
-    $newPassword=md5($passwordDefault);
-    $newConfirm=md5($cpasswordDefault);
-
-    $selectUsuarios= $db -> prepare("SELECT * FROM usuarios WHERE usuario = '$usernameDefault'");
-    $selectUsuarios -> execute();
-    $countUsuarios = $selectUsuarios -> rowCount();
-
-    $selectMail=$db -> prepare("SELECT * FROM usuarios WHERE mail = '$emaildefault' ");
-    $selectMail -> execute();
-    $countMails = $selectMail -> rowCount();
-
-
-    if($countUsuarios == 0 && $countMails == 0){
-
-        $stmt=$db -> prepare ("INSERT INTO usuarios(usuario,mail,password,cpassword,nombre) VALUES( '$usernameDefault' , '$emaildefault' , '$newPassword' , '$newConfirm' , '$nameDefault')");
-
-        $stmt -> execute(); 
-
-        header("location:login.php");
-       
-    }elseif($countUsuarios != 0 && $countMails != 0){
-        $emailError="Email existente";
-        $errors["mail"]=$emailError;
-
-        $usernameError="Usuario existente";
-        $errors["usuario"]=$usernameError;
-    }elseif($countUsuarios != 0 && $countMails == 0){
-        $usernameError="Usuario existente";
-        $errors["usuario"]=$usernameError;
-    }else{
-        $emailError="Email existente";
-        $errors["mail"]=$emailError;
-    }
-
-
-  }
-  if (!isset($errors["mail"])) {
-    $emaildefault = $_POST["mail"];
-  }
-
-  if (!isset($errors["usuario"])) {
-    $usernameDefault = $_POST["usuario"];
-  }else {
-    $usernameError = $errors["usuario"];
-  }
-
-  if (!isset($errors["name"])) {
-    $nameDefault = $_POST["name"];
-  }else {
-    $nameError = $errors["name"];
-  }
-  if (isset($errors["password"])) {
-    $passwordError = $errors["password"];
-  }
-
-
-}
-
-include ("header.php");
+    include ("header.php");
  ?>
 
   <div class="login-page">
@@ -115,7 +69,7 @@ include ("header.php");
           }
        ?>
 
-       <?php
+      <?php
            if (isset($errors["password"]) || isset($errors["cpassword"])) {?>
              <input id= 'error' type="password" name = "password" placeholder="<?=$passwordError?>"/>
              <input id= 'error' type="password" name = "cpassword" placeholder="comfirmar contraseña"/>
@@ -125,29 +79,27 @@ include ("header.php");
                <input type="password" name = "cpassword" placeholder="comfirmar contraseña"/>
              <?php
            }
-        ?>
+      ?>
 
-        <?php
-            if (isset($errors["mail"])) {?>
+      <?php
+        if (isset($errors["mail"])) {?>
 
-                <input id= 'error' type="email" name= "mail" placeholder="<?=$emailError?>"/>
+            <input id= 'error' type="email" name= "mail" placeholder="<?=$emailError?>"/>
 
-              <?php
-            }else {?>
+          <?php
+        }else {?>
 
-                <input type="email" name= "mail" placeholder="cuenta de email" value="<?=$emaildefault?>"/>
-              <?php
-            }
-         ?>
+            <input type="email" name= "mail" placeholder="cuenta de email" value="<?=$emaildefault?>"/>
+          <?php
+        }
+     ?>
 
       <input type='submit' id = "submit" name='Submit' value='Crear Cuenta' />
       <p class="message2">Ya estas registrado? <a href="login.php">Inicia Sesión</a></p>
     </form>
-
   </div>
 
 </div>
-
 
 </body>
 </html>
