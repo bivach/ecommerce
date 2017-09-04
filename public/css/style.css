@@ -1,0 +1,566 @@
+
+@import url(https://fonts.googleapis.com/css?family=Roboto:300);
+@import url(https://fonts.googleapis.com/css?family=Dosis);
+
+
+/* Makes images fully responsive */
+
+.img-responsive,
+.thumbnail > img,
+.thumbnail a > img,
+.carousel-inner > .item > img,
+.carousel-inner > .item > a > img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* ------------------- Carousel Styling ------------------- */
+
+
+.carousel-inner {
+
+}
+
+.btn-primary,
+.btn-primary:hover,
+.btn-primary:active,
+.btn-primary:visited,
+.btn-primary:focus {
+    background-color: #1d1d50;
+    border-color: #1d1d50;
+}
+.product_view .modal-dialog{max-width: 800px; width: 100%;}
+.pre-cost{text-decoration: line-through; color: #a5a5a5;}
+.space-ten{padding: 10px 0;}
+.pagination{
+  display:table;
+  margin:0 auto;
+  margin-bottom: 20px;
+}
+
+.pagination > li > a,
+.pagination > li > span {
+    color: #1d1d50;
+    display:table;
+}
+
+.pagination > .active > a,
+.pagination > .active > a:focus,
+.pagination > .active > a:hover,
+.pagination > .active > span,
+.pagination > .active > span:focus,
+.pagination > .active > span:hover {
+    background-color: #1d1d50;
+    border-color: #1d1d50;
+    display:table;
+
+}
+
+.containerLogin {
+  max-width: 360px;
+  margin: 0 auto;
+  margin-top: 30px;
+}
+
+.carousel-caption {
+  background-color: rgba(0,0,0,.5);
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10;
+  padding: 0 0 10px 25px;
+  color: #fff;
+  text-align: left;
+}
+
+.carousel-indicators {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  width: 100%;
+  z-index: 15;
+  margin: 0;
+  padding: 0 25px 25px 0;
+  text-align: right;
+}
+
+.carousel-control.left,
+.carousel-control.right {
+  background-image: none;
+}
+
+
+/* ------------------- Section Styling - Not needed for carousel styling ------------------- */
+
+.section-white {
+   padding: 10px 0;
+}
+
+.section-white {
+  background-color: #fff;
+  color: #555;
+}
+
+@media screen and (min-width: 768px) {
+
+  .section-white {
+     padding: 1.5em 0;
+  }
+
+}
+
+@media screen and (min-width: 992px) {
+
+  .container {
+    max-width: 1000px;
+  }
+
+  .containerLogin {
+    max-width: 900px;
+    margin-top: 30px;
+  }
+
+}
+
+
+.login-page {
+  width: 100%;
+  padding: 8% 0 0;
+  margin: auto;
+}
+.faq-page {
+  width: 100%;
+  padding: 30px 0 0;
+  margin: auto;
+  height: 100%;
+}
+
+.form {
+  position: relative;
+  width: 90%;
+  z-index: 1;
+  background: #FFFFFF;
+  max-width: 360px;
+  margin: 0 auto 100px;
+  padding: 30px;
+  text-align: center;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+.form input {
+  font-family: "Roboto", sans-serif;
+  outline: 0;
+  background: #f2f2f2;
+  width: 100%;
+  border: 0;
+  margin: 0 0 15px;
+  padding: 15px;
+  box-sizing: border-box;
+  font-size: 14px;
+}
+.form input#error {
+  font-family: "Roboto", sans-serif;
+  outline: 0;
+  background: #FFCDD2;
+  width: 100%;
+  border: 0;
+  margin: 0 0 15px;
+  padding: 15px;
+  box-sizing: border-box;
+  font-size: 14px;
+}
+.form input#check{
+  color: black;
+}
+.form-signin .checkbox {
+  margin-bottom: 30px;
+}
+.form-signin .checkbox {
+  font-weight: normal;
+}
+.form-group input#submit {
+  font-family: "Roboto", sans-serif;
+  margin: 0;
+  text-transform: uppercase;
+  outline: 0;
+  background: #1d1d50;
+  width: 50%;
+  border: 0;
+  padding: 15px;
+  color: #FFFFFF;
+  font-size: 14px;
+  -webkit-transition: all 0.3 ease;
+  transition: all 0.3 ease;
+  cursor: pointer;
+}
+a#buysell {
+  font-family: "Dosis", sans-serif;
+
+  text-transform: uppercase;
+  outline: 0;
+  background: #1d1d50;
+  width: 100%;
+  border: 0;
+  color: #FFFFFF;
+  font-size: 20px;
+  -webkit-transition: all 0.3 ease;
+  transition: all 0.3 ease;
+  cursor: pointer;
+}
+.form button:hover,.form button:active,.form button:focus {
+  background: #1d1d50;
+}
+.form .message {
+  margin: 0px 0 0;
+  color: #b3b3b3;
+  font-size: 12px;
+}
+.form .message a {
+  color: #1d1d50;
+  text-decoration: none;
+}
+
+body {
+  background: #1d1d50;
+
+  background-image: url(../img/background.png);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+p.remember_me {
+  float: left;
+  line-height: 31px;
+}
+p.remember_me label {
+  font-size: 12px;
+  color: #777;
+  cursor: pointer;
+}
+p.remember_me input {
+  position: relative;
+  bottom: 1px;
+  margin-right: 4px;
+  vertical-align: middle;
+}
+
+p#recorda{
+  margin: 0;
+  margin-top: 20px;
+  font-size: 14px;
+  color: #1d1d50;
+
+}
+p#recorda2{
+  margin: 15px;
+  margin-top: 20px;
+  font-size: 14px;
+  color: #1d1d50;
+
+}
+
+.form input#remember_me {
+  width: auto;
+
+}
+
+.form .message2 {
+  margin: 15px 0 0;
+  color: #b3b3b3;
+  font-size: 12px;
+}
+.form .message2 a {
+  color: #1d1d50;
+  text-decoration: none;
+}
+.faq .message2 {
+  margin: 15px 0 0;
+  color: #b3b3b3;
+  font-size: 12px;
+}
+.faq .message2 a {
+  color: #1d1d50;
+  text-decoration: none;
+}
+
+
+.faq {
+  position: relative;
+  width: 90%;
+  z-index: 1;
+  background: #FFFFFF;
+  max-width: 860px;
+  margin: 0 auto 50px;
+
+  text-align: center;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+
+.home {
+  position: relative;
+  width: 90%;
+  z-index: 1;
+  background: #1d1d50;
+  max-width: 860px;
+  margin: 0 auto 30px;
+
+  text-align: center;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+
+#navbarID {
+    background-color: #1d1d50;
+    color: #FFFFFF;
+}
+
+.row1{
+    padding-top: 10px;
+}
+
+.row2 {
+    padding-bottom: 25px;
+}
+
+.navbar-input {
+    height: 46px;
+    border-radius: 2px 0 0 2px;
+    border: 0 none;
+    outline: 0 none;
+    font-size: 15px;
+    font-family: 'Dosis', sans-serif;
+    color: black;
+}
+
+.navbar-button {
+    background-color: #ffe11b;
+    border: 1px solid #ffe11b;
+    border-radius: 0 2px 2px 0;
+    color: #565656;
+    padding: 10px 0;
+    height: 46px;
+    cursor: pointer;
+}
+
+.cart-button {
+    background-color: #434661;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .23), inset 1px 1px 0 0 hsla(0, 0%, 100%, .2);
+    padding: 10px 0;
+    text-align: center;
+    height: 43px;
+    border-radius: 2px;
+    font-weight: 500;
+    width: 120px;
+    font-family: 'Dosis', sans-serif;
+    display: inline-block;
+    color: #FFFFFF;
+    text-decoration: none;
+    color: inherit;
+    border: none;
+    outline: none;
+}
+
+.cart-button:hover{
+    text-decoration: none;
+    color: #fff;
+    cursor: pointer;
+}
+
+.cart-svg {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    vertical-align: middle;
+    margin-right: 8px;
+}
+
+.item-number {
+    border-radius: 3px;
+    background-color: rgba(0, 0, 0, .1);
+    height: 20px;
+    padding: 3px 6px;
+    font-weight: 500;
+    display: inline-block;
+    color: #fff;
+    line-height: 12px;
+    margin-left: 10px;
+}
+
+.upper-links {
+    display: inline-block;
+    padding: 0 11px;
+    line-height: 23px;
+    font-family: 'Dosis', sans-serif;
+    letter-spacing: 0;
+    color: inherit;
+    border: none;
+    outline: none;
+    font-size: 12px;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 0px;
+}
+
+.dropdown:hover {
+    background-color: #fff;
+}
+
+.dropdown:hover .links {
+    color: #000;
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+.dropdown .dropdown-menu {
+    position: absolute;
+    top: 100%;
+    display: none;
+    background-color: #fff;
+    color: #333;
+    left: 0px;
+    border: 0;
+    border-radius: 0;
+    box-shadow: 0 4px 8px -3px #555454;
+    margin: 0;
+    padding: 0px;
+}
+
+.links {
+    color: #fff;
+    text-decoration: none;
+}
+
+.links:hover {
+    color: #fff;
+    text-decoration: none;
+}
+
+.profile-links {
+    font-size: 12px;
+    font-family: 'Roboto', sans-serif;
+    border-bottom: 1px solid #e9e9e9;
+    box-sizing: border-box;
+    display: block;
+    padding: 0 11px;
+    line-height: 23px;
+}
+
+h1 span{
+  font-size: 26px;
+  margin-bottom: 20px;
+  text-align: center;
+  font-family: 'Dosis', sans-serif;
+  line-height: 0.9;
+}
+
+.profile-li{
+    padding-top: 2px;
+}
+
+.largenav {
+    display: none;
+}
+
+.smallnav{
+    display: block;
+    font-family: 'Dosis', sans-serif;
+}
+
+.smallsearch{
+    margin-left: 15px;
+    margin-top: 15px;
+}
+
+.menu{
+    cursor: pointer;
+}
+
+/*Sidenav*/
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 2;
+    top: 0;
+    left: 0;
+    background-color: #fff;
+    overflow-x: hidden;
+    transition: 0.5s;
+    box-shadow: 0 4px 8px -3px #555454;
+    padding-top: 0px;
+}
+
+.sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s
+}
+
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+    color: #fff;
+}
+
+.sidenav-heading{
+    font-size: 36px;
+    color: #fff;
+
+}
+
+
+
+@media screen and (min-width: 768px) {
+
+  .container {
+    max-width: 1000px;
+  }
+  .navbar-button {
+
+      height: 46px;
+
+  }
+
+  .containerLogin {
+    max-width: 760px;
+    margin: 0 auto;
+    margin-top: 30px;
+  }
+
+  .row2 {
+      padding-bottom: 0px;
+  }
+
+  .form {
+    position: relative;
+    width: 90%;
+    z-index: 1;
+    background: #FFFFFF;
+    max-width: 360px;
+    margin: 0 auto 100px;
+    padding: 45px;
+    text-align: center;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+  }
+    .largenav {
+        display: block;
+    }
+    .smallnav{
+        display: none;
+    }
+    .smallsearch{
+        margin: 0px;
+    }
+}
